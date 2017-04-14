@@ -154,6 +154,11 @@ Template.body.events({
     $("#qty")[0].value = obj.amount
     $("#total-price")[0].value = obj.purchaseCost
   },
+  'click .add-container-btn' (event) {
+    var obj = myAssets[event.currentTarget.id]
+    $("#qty")[0].value = 1
+    $("#total-price")[0].value = 100
+  },
   'click #delete' (event) {
     var assetName = $("#asset-name")[0]
     var selector = {
