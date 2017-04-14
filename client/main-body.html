@@ -1,0 +1,76 @@
+<body>
+    {{#if currentUser}}
+    <div class="container right">
+        <label class="label header-label">NET</label>
+        <h2 id="total-net-pos">$0.00</h2>
+        <label class="label header-label">CAPITAL</label>
+        <h2 id="total-investment">$0.00</h2>
+        <div class="row">
+            {{#each coins}} {{> coin}} {{/each}}
+            <div class="card center add-container-btn" data-toggle="modal" data-target="#asset-dialog" style="width: 20rem;">
+                <div class="card-block">
+                    <i class="add-icon material-icons">add</i>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-2">
+                <h2>Cryptocurrency dashboard</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 center">{{> loginButtons}}</div>
+        </div>
+    </div>
+    {{/if}}
+</body>
+<template name="coin">
+    <div class="col-6">
+        <div class="card asset-card" id="{{id}}" data-toggle="modal" data-target="#asset-dialog" style="width: 20rem;">
+            <div class="card-block">
+                <h3 class="card-title">{{name}}</h3>
+                    <div class="row">
+                        <div id="net-pos-container-{{name}}" class="col-md-5 left">
+                            <label>NET</label>
+                            <i class="bigIcon zmdi "></i>
+                            <p id="net-position-{{name}}" class="bigText"></p>
+                        </div>
+                        <div id="pos-container-{{name}}" class="inline col-md-5 offset-md-2 left">
+                            <label>24Hr</label>
+                            <i class="bigIcon zmdi "></i>
+                            <p id="position-{{name}}" class="bigText"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="price-container-{{name}}" class="inline col-md-5 left">
+                            <label>Purchase</label>
+                            <p id="bkeven-price-{{name}}" class="bigText">$0.0</p>
+                        </div>
+                        <div id="price-container-{{name}}" class="col-md-5 offset-md-2 left">
+                            <label>Market</label>
+                            <p id="price-{{name}}" class="bigText">$0.0</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 left">
+                            <label>Capital</label>
+                            <p id="capital-{{name}}" class="bigText">0</p>
+                        </div>
+                        <div class="col-md-5 offset-md-2 left">
+                            <label>Token</label>
+                            <p id="amount-{{name}}" class="bigText">0</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="portfolio-container-{{name}}" class="inline col-md-5 left">
+                            <label>Portfolio</label>
+                            <p id="portfolio-{{name}}" class="bigText">0%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </template>

@@ -1,3 +1,44 @@
+.modal-body .form-horizontal .col-sm-2, .modal-body .form-horizontal .col-sm-10 {
+    width: 100%
+}
+
+button.btn.dropdown-toggle.btn-default {
+    text-transform: uppercase;
+    font-size: 1em;
+}
+
+.modal-body .form-horizontal .control-label {
+    text-align: left;
+}
+
+.modal-body .form-horizontal .col-sm-offset-2 {
+    margin-left: 15px;
+}
+
+#asset-name {
+  font-size: 1.1em;
+  font-family: 'Roboto', sans-serif;
+}
+
+.input-group-addon {
+    padding-right: 20px !important;
+}
+
+.add-container-btn {
+    padding: 8em;
+}
+
+.add-container-btn:hover {
+    background-color: #fbfbfb;
+}
+
+.add-icon {
+    color: #BDC3C7;
+    font-size: 3em;
+    font-weight: lighter;
+    cursor: pointer;
+}
+
 .bigIcon {
     margin-left: 2pt;
     font-size: 1.5rem;
@@ -9,11 +50,11 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.label {
+label {
     font-size: 1rem;
     font-weight: 200;
     font-family: 'Roboto', sans-serif;
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
     color: grey;
 }
 
@@ -23,6 +64,10 @@
 
 .left {
     text-align: left;
+}
+
+.center {
+    text-align: center;
 }
 
 h2 {
@@ -40,7 +85,7 @@ h3 {
 }
 
 body {
-    margin-top: 73px !important;
+    margin-top: 43px !important;
 }
 
 .positive {

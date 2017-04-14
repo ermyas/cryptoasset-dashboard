@@ -6,13 +6,18 @@ import {
   HTTP
 } from 'meteor/http'
 
-Meteor.startup(() => {
-  // code to run on server at startup
-});
+Assets = new Mongo.Collection('assets');
 
 Meteor.methods({
-  'getPosition': function(currency) {
+  'listCurrencies': function() {
+    var apiUrl = 'https://api.coinmarketcap.com/v1/ticker/'
+
+    return HTTP.get(apiUrl).data;
+    // cache result
+  },
+  'getCurrencyPosition': function(currency) {
     var apiUrl = 'https://api.coinmarketcap.com/v1/ticker/' + currency + '/?convert=AUD'
+    // return result from cache
     return HTTP.get(apiUrl).data;
   }
 });
