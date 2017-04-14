@@ -3,7 +3,7 @@
 Basic dashboard to track investments on cryptoassets against market prices in [CoinMarketCap](http://coinmarketcap.com).
 
 **Requirement**
-- Meteor _(v1.4+)_
+- [Meteor v1.4+](https://www.meteor.com/)
 - OAuth 2.0 client credentials from the [Google API Console](https://console.developers.google.com/).
 
 **Quickstart**
