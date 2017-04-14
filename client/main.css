@@ -16,8 +16,8 @@ button.btn.dropdown-toggle.btn-default {
 }
 
 #asset-name {
-  font-size: 1.1em;
-  font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+    font-family: 'Roboto', sans-serif;
 }
 
 .input-group-addon {
@@ -25,7 +25,7 @@ button.btn.dropdown-toggle.btn-default {
 }
 
 .add-container-btn {
-    padding: 8em;
+    padding-top: 10%;
 }
 
 .add-container-btn:hover {
