@@ -153,11 +153,13 @@ Template.body.events({
     $("#asset-name")[0].value = obj.name
     $("#qty")[0].value = obj.amount
     $("#total-price")[0].value = obj.purchaseCost
+    $("#delete")[0].style.visibility = "visible"
   },
   'click .add-container-btn' (event) {
     var obj = myAssets[event.currentTarget.id]
     $("#qty")[0].value = 1
     $("#total-price")[0].value = 100
+    $("#delete")[0].style.visibility = "hidden"
   },
   'click #delete' (event) {
     var assetName = $("#asset-name")[0]
