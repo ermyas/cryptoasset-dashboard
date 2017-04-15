@@ -131,6 +131,7 @@ Template.assetopt.created = function() {
       }
     })
     template.currencyListing.set(all);
+    $('.selectpicker').selectpicker();
   })
 }
 var bodyContext;
@@ -151,12 +152,14 @@ Template.body.events({
   'click .asset-card' (event) {
     var obj = myAssets[event.currentTarget.id]
     $("#asset-name")[0].value = obj.name
+    $("#asset-name")[0].disabled = true
     $("#qty")[0].value = obj.amount
     $("#total-price")[0].value = obj.purchaseCost
     $("#delete")[0].style.visibility = "visible"
   },
   'click .add-container-btn' (event) {
     var obj = myAssets[event.currentTarget.id]
+    $("#asset-name")[0].disabled = false
     $("#qty")[0].value = 1
     $("#total-price")[0].value = 100
     $("#delete")[0].style.visibility = "hidden"
