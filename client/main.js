@@ -131,7 +131,6 @@ Template.assetopt.created = function() {
       }
     })
     template.currencyListing.set(all);
-    $('.selectpicker').selectpicker();
   })
 }
 var bodyContext;
