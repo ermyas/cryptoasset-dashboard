@@ -15,6 +15,13 @@ button.btn.dropdown-toggle.btn-default {
     margin-left: 15px;
 }
 
+.modal-content {
+    padding-bottom: 19px;
+    width: 596px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 #asset-name {
     font-size: 1.1em;
     font-family: 'Roboto', sans-serif;
