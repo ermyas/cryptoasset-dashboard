@@ -129,7 +129,7 @@ Template.assetopt.created = function() {
         "id": x.id,
         "symbol": x.symbol
       }
-    })
+    }).sort((a,b) => a.name.localeCompare(b.name));
     template.currencyListing.set(all);
   })
 }
