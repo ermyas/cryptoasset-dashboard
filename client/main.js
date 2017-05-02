@@ -58,7 +58,7 @@ function getUser() {
 function getMyAssets() {
   var assets = Assets.find({
     owner: getUser()
-  }).fetch().map(x => new CryptoCurrency(x.id, x.name, x.owner, x.amount, x.purchaseCost));
+}).fetch().map(x => new CryptoCurrency(x.id, x.name, x.owner, x.amount, x.purchaseCost));
 
   assets.forEach(x => {
     myAssets[x.id] = x
@@ -89,29 +89,43 @@ function updateTemplate(context) {
         if (res != undefined && res.length > 0) {
           coin.currentPosition = res[0];
           var net = parseFloat(coin.netPosition());
+          var capital = coin.amount * coin.avgPaidPricePerCoin();
+          var delta1H = coin.currentPosition.percent_change_1h / 100.0
           var delta24H = coin.currentPosition.percent_change_24h / 100.0
-          context.find('#net-position-' + coin.name).innerHTML = numeral(net).format('$0,0.000')
-          context.find('#position-' + coin.name).innerHTML = numeral(delta24H).format('0,0.00%')
-          context.find('#bkeven-price-' + coin.name).innerHTML = numeral(coin.avgPaidPricePerCoin()).format('$0,0.000')
+          context.find('#net-position-' + coin.name).innerHTML = numeral(net).format('$0,0.00')
+          context.find('#position-1hr-' + coin.name).innerHTML = numeral(delta1H).format('0,0.00%')
+          context.find('#percent-position-' + coin.name).innerHTML = numeral(net/capital).format('0,0.00%')
+          context.find('#position-24hr-' + coin.name).innerHTML = numeral(delta24H).format('0,0.00%')
+          context.find('#bkeven-price-' + coin.name).innerHTML = numeral(coin.avgPaidPricePerCoin()).format('$0,0.00')
           context.find('#amount-' + coin.name).innerHTML = numeral(coin.amount).format('0,0.00')
-          context.find('#capital-' + coin.name).innerHTML = numeral(coin.amount * coin.avgPaidPricePerCoin()).format('$0,0.00')
+          //context.find('#symbol-' + coin.name).innerHTML = coin.currentPosition.symbol
+          context.find('#capital-' + coin.name).innerHTML = numeral(capital).format('$0,0.00')
 
-          context.find('#price-' + coin.name).innerHTML = numeral(coin.currentPurchasePrice()).format('$0,0.000')
+          context.find('#price-' + coin.name).innerHTML = numeral(coin.currentPurchasePrice()).format('$0,0.00')
           context.find('#portfolio-' + coin.name).innerHTML = numeral(coin.purchaseCost / totalInvestment).format('0,0.00%')
 
           context.find('#net-pos-container-' + coin.name).classList.add(valueClass(net))
-          context.find('#pos-container-' + coin.name).classList.add(valueClass(coin.currentPosition.percent_change_24h))
+          context.find('#pos-1hr-container-' + coin.name).classList.add(valueClass(coin.currentPosition.percent_change_1h))
 
           context.find('#net-pos-container-' + coin.name + ' i').classList.add(valueIconClass(net))
-          context.find('#pos-container-' + coin.name + ' i').classList.add(valueIconClass(delta24H))
-          context.find('#pos-container-' + coin.name + ' i').classList.add(valueIconClass(delta24H))
+          context.find('#pos-1hr-container-' + coin.name + ' i').classList.add(valueIconClass(delta1H))
+          context.find('#pos-1hr-container-' + coin.name + ' i').classList.add(valueIconClass(delta1H))
+
+          context.find('#percent-pos-container-' + coin.name).classList.add(valueClass(net/capital))
+          context.find('#pos-24hr-container-' + coin.name).classList.add(valueClass(coin.currentPosition.percent_change_24h))
+
+          context.find('#percent-pos-container-' + coin.name + ' i').classList.add(valueIconClass(net))
+          context.find('#pos-24hr-container-' + coin.name + ' i').classList.add(valueIconClass(delta24H))
+          context.find('#pos-24hr-container-' + coin.name + ' i').classList.add(valueIconClass(delta24H))
 
           totalNet = parseFloat(totalNet) + net;
           if (updatedCoin == myAssets.length) {
-            context.find('#total-net-pos').innerHTML = numeral(totalNet).format('$0,0.000')
+            context.find('#total-net-pos').innerHTML = numeral(totalNet).format('$0,0.00')
             context.find('#total-net-pos').classList.add(valueClass(totalNet))
+            context.find('#percent-net-pos').innerHTML = numeral(totalNet/totalInvestment).format('0,0.00%')
+            context.find('#percent-net-pos').classList.add(valueClass(totalNet/totalInvestment))
             //FIXME: this should be outside this function, but it appears template is not rendered at the time rendered function is called hence the dom element is not foun
-            context.find('#total-investment').innerHTML = numeral(totalInvestment).format('$0,0.000')
+            context.find('#total-investment').innerHTML = numeral(totalInvestment).format('$0,0.00')
           }
         }
       })
