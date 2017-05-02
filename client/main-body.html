@@ -31,10 +31,13 @@
 </body>
 <template name="coin">
     <div class="col-md-auto">
-        <div class="card asset-card" id="{{id}}" data-toggle="modal" data-target="#asset-dialog" style="width: 20rem;">
+        <div class="card asset-card" id="{{id}}" style="width: 20rem;">
             <div class="card-block">
-                <h3 class="card-title">
-                    <span id="amount-{{name}}">0</span> {{name}}</h3>
+                <a href="#">
+                    <h3 class="card-title" id="{{id}}" data-toggle="modal" data-target="#plot-dialog">
+                        <span id="amount-{{name}}">0</span> {{name}}</h3>
+                </a>
+                <div class="card-body" id="{{id}}" data-toggle="modal" data-target="#asset-dialog">
                     <div class="row">
                         <div id="net-pos-container-{{name}}" class="col-md-5 left">
                             <label>NET</label>
@@ -82,4 +85,5 @@
                 </div>
             </div>
         </div>
-        </template>
+    </div>
+    </template>

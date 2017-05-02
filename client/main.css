@@ -120,3 +120,11 @@ body {
     font-weight: 100;
     text-transform: uppercase;
 }
+
+.plot-loading {
+    margin-bottom: 0.9rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    text-transform: uppercase;
+    text-align: center;
+}

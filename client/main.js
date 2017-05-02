@@ -14,12 +14,13 @@ import tether from 'tether';
 
 import './main-body.html';
 import './asset-dialog.html'
+import './plot-dialog.html'
 
 global.Tether = tether;
 bootstrap = require('bootstrap');
 
 Meteor.startup(function() {
-  Assets = new Mongo.Collection('assets');
+    Assets = new Mongo.Collection('assets');
 });
 myAssets = {}
 
@@ -56,14 +57,23 @@ function getUser() {
 }
 
 function getMyAssets() {
-  var assets = Assets.find({
-    owner: getUser()
-}).fetch().map(x => new CryptoCurrency(x.id, x.name, x.owner, x.amount, x.purchaseCost));
-
-  assets.forEach(x => {
-    myAssets[x.id] = x
-  })
-  return assets;
+    var assets = Assets.find({
+        owner: getUser()
+    }).fetch().map(x => new CryptoCurrency(x.id, x.name, x.owner, x.amount, x.purchaseCost));
+    assets.forEach(x => {
+        myAssets[x.id] = x
+    })
+    // LATER WE SHOULS SIMPLY START STORING THE SYMBOL!
+    Meteor.call('listCurrencies', function(err, res) {
+        if (res != undefined && res.length > 0) {
+            res.forEach(x => {
+                if (myAssets[x.id] != undefined) {
+                    myAssets[x.id].symbol = x.symbol;
+                }
+            });
+        }
+    });
+    return assets;
 }
 
 function valueClass(value) {
@@ -162,7 +172,30 @@ Template.body.helpers({
 })
 
 Template.body.events({
-  'click .asset-card' (event) {
+    'click .card-title' (event) {
+        var asset = myAssets[event.currentTarget.id];
+        var layout = {
+            title: asset.name + " (" + asset.symbol + ")",
+            width: 550, height:250,
+            margin: { t: 40, l: 60, b: 40, r: 40 },
+            yaxis: {
+                title: "Price (AUD)"
+            }
+        };
+        $("#plot-loading")[0].style.visibility = "visible";
+        $("#plot")[0].style.visibility = "hidden";
+        Meteor.call('getCurrencyHistory', asset.symbol, function(err, res) {
+            var data = [{
+                type: 'scatter', mode: 'lines', line: { width: 1 },
+                x: res.Data.map(point => new Date(1000*point.time)),
+                y: res.Data.map(point => 0.5*(point.open + point.close))
+            }];
+            Plotly.newPlot($('#plot')[0], data, layout);
+            $("#plot-loading")[0].style.visibility = "hidden";
+            $("#plot")[0].style.visibility = "visible";
+        });
+    },
+  'click .card-body' (event) {
     var obj = myAssets[event.currentTarget.id]
     $("#asset-name")[0].value = obj.name
     $("#asset-name")[0].disabled = true
