@@ -94,6 +94,7 @@ function updateTemplate(context) {
     }, 0)
 
     myAssets.forEach(coin => {
+      console.log("Getting curency position for: ", coin.id)
       Meteor.call('getCurrencyPosition', coin.id, function(err, res) {
         updatedCoin++;
         if (res != undefined && res.length > 0) {
@@ -102,31 +103,31 @@ function updateTemplate(context) {
           var capital = coin.amount * coin.avgPaidPricePerCoin();
           var delta1H = coin.currentPosition.percent_change_1h / 100.0
           var delta24H = coin.currentPosition.percent_change_24h / 100.0
-          context.find('#net-position-' + coin.name).innerHTML = numeral(net).format('$0,0.00')
-          context.find('#position-1hr-' + coin.name).innerHTML = numeral(delta1H).format('0,0.00%')
-          context.find('#percent-position-' + coin.name).innerHTML = numeral(net/capital).format('0,0.00%')
-          context.find('#position-24hr-' + coin.name).innerHTML = numeral(delta24H).format('0,0.00%')
-          context.find('#bkeven-price-' + coin.name).innerHTML = numeral(coin.avgPaidPricePerCoin()).format('$0,0.00')
-          context.find('#amount-' + coin.name).innerHTML = numeral(coin.amount).format('0,0.00')
-          //context.find('#symbol-' + coin.name).innerHTML = coin.currentPosition.symbol
-          context.find('#capital-' + coin.name).innerHTML = numeral(capital).format('$0,0.00')
+          context.find('#net-position-' + coin.id).innerHTML = numeral(net).format('$0,0.00')
+          context.find('#position-1hr-' + coin.id).innerHTML = numeral(delta1H).format('0,0.00%')
+          context.find('#percent-position-' + coin.id).innerHTML = numeral(net/capital).format('0,0.00%')
+          context.find('#position-24hr-' + coin.id).innerHTML = numeral(delta24H).format('0,0.00%')
+          context.find('#bkeven-price-' + coin.id).innerHTML = numeral(coin.avgPaidPricePerCoin()).format('$0,0.00')
+          context.find('#amount-' + coin.id).innerHTML = numeral(coin.amount).format('0,0.00')
+          //context.find('#symbol-' + coin.id).innerHTML = coin.currentPosition.symbol
+          context.find('#capital-' + coin.id).innerHTML = numeral(capital).format('$0,0.00')
 
-          context.find('#price-' + coin.name).innerHTML = numeral(coin.currentPurchasePrice()).format('$0,0.00')
-          context.find('#portfolio-' + coin.name).innerHTML = numeral(coin.purchaseCost / totalInvestment).format('0,0.00%')
+          context.find('#price-' + coin.id).innerHTML = numeral(coin.currentPurchasePrice()).format('$0,0.00')
+          context.find('#portfolio-' + coin.id).innerHTML = numeral(coin.purchaseCost / totalInvestment).format('0,0.00%')
 
-          context.find('#net-pos-container-' + coin.name).classList.add(valueClass(net))
-          context.find('#pos-1hr-container-' + coin.name).classList.add(valueClass(coin.currentPosition.percent_change_1h))
+          context.find('#net-pos-container-' + coin.id).classList.add(valueClass(net))
+          context.find('#pos-1hr-container-' + coin.id).classList.add(valueClass(coin.currentPosition.percent_change_1h))
 
-          context.find('#net-pos-container-' + coin.name + ' i').classList.add(valueIconClass(net))
-          context.find('#pos-1hr-container-' + coin.name + ' i').classList.add(valueIconClass(delta1H))
-          context.find('#pos-1hr-container-' + coin.name + ' i').classList.add(valueIconClass(delta1H))
+          context.find('#net-pos-container-' + coin.id + ' i').classList.add(valueIconClass(net))
+          context.find('#pos-1hr-container-' + coin.id + ' i').classList.add(valueIconClass(delta1H))
+          context.find('#pos-1hr-container-' + coin.id + ' i').classList.add(valueIconClass(delta1H))
 
-          context.find('#percent-pos-container-' + coin.name).classList.add(valueClass(net/capital))
-          context.find('#pos-24hr-container-' + coin.name).classList.add(valueClass(coin.currentPosition.percent_change_24h))
+          context.find('#percent-pos-container-' + coin.id).classList.add(valueClass(net/capital))
+          context.find('#pos-24hr-container-' + coin.id).classList.add(valueClass(coin.currentPosition.percent_change_24h))
 
-          context.find('#percent-pos-container-' + coin.name + ' i').classList.add(valueIconClass(net))
-          context.find('#pos-24hr-container-' + coin.name + ' i').classList.add(valueIconClass(delta24H))
-          context.find('#pos-24hr-container-' + coin.name + ' i').classList.add(valueIconClass(delta24H))
+          context.find('#percent-pos-container-' + coin.id + ' i').classList.add(valueIconClass(net))
+          context.find('#pos-24hr-container-' + coin.id + ' i').classList.add(valueIconClass(delta24H))
+          context.find('#pos-24hr-container-' + coin.id + ' i').classList.add(valueIconClass(delta24H))
 
           totalNet = parseFloat(totalNet) + net;
           if (updatedCoin == myAssets.length) {
